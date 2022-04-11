@@ -1,0 +1,20 @@
+<div class="grid-contents wrapper">
+
+  <h1>ルーム一覧</h1>
+
+  <p>検索結果：<%= @result %>件</p>
+
+  <div class="grid">
+    <% @rooms.each do |room| %>
+      <div class="roomitem">
+        <div class="roomimage-allroom-contents">
+          <%= image_tag room.image.url(:preview) %>
+        </div>
+        <h2><%= link_to "#{room.roomname}", room_path(room.id) %></h2>
+        <h3><%= room.address %></h3>
+        <p>&yen;<%= room.price %></p>
+      </div>
+    <% end %>
+  </div>
+
+</div>

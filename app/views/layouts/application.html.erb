@@ -1,16 +1,70 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Work4Reserve</title>
+    <title>ShaREsort</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="discription" content="リゾートを身近に。リゾートエリアの格安物件をシェアするサービス">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header class="page-header wrapper">
+      <h1><%= link_to image_tag("logo.png", class:"logo"), root_path%></h1>
+
+      <div class="search">
+        <%= search_form_for @search do |f| %>
+          <% f.label :address_cont, "エリア" %>
+          <%= f.search_field :address_cont, placeholder: "エリア" %>
+          <% f.submit "検索" %>
+        <% end %>
+        <%= search_form_for @search do |f| %>
+          <% f.label :roomname_or_info_or_address_cont, "キーワード" %>
+          <%= f.search_field :roomname_or_info_or_address_cont, placeholder: "キーワード" %>
+          <% f.submit "検索" %>
+        <% end %>
+      </div>
+
+      <nav>
+        <div class="main-nav">
+          <% if user_signed_in? %>
+            <div class="hamburger-menu">
+              <input type="checkbox" id="menu-btn-check">
+              <label for="menu-btn-check" class="menu-btn"><span></span></label>
+              <div class="menu-content">
+                <ul>
+                  <li>ようこそ、<%= @user.username %>さん</li>
+                  <li><%= link_to "ルーム登録", new_room_path %></li>
+                  <li><%= link_to "予約済みルーム一覧", reservations_path %></li>
+                  <li><%= link_to "登録済みルーム一覧", users_posts_path %></li>
+                  <li><%= link_to "アカウント設定", users_account_path %></li>
+                  <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                </ul>
+              </div>
+            </div>
+            
+          <% else %>
+            <%= button_to "ログイン", {controller: 'users/sessions', action: 'new'}, {method: :get} %>
+            <%= button_to "新規登録", {controller: 'users/registrations', action: 'new'}, {method: :get} %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+
     <%= yield %>
+
+    <footer>
+      <div class="wrapper">
+        <p><small>&copy; 2022 ShaREsort</small></p>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,0 +1,27 @@
+<div class="list-contents wrapper">
+  <h1>登録済みルーム一覧</h1>
+
+  <table>
+    <thread>
+      <tr>
+      <th>ルーム画像</th>
+      <th>ルーム名</th>
+      <th>ルーム紹介</th>
+      <th>料金</th>
+      <th>作成日</th>
+      </tr>
+    </thread>
+    <tbody>
+      <% @rooms.each do |room| %>
+        <tr>
+        <td><%= image_tag room.image.url(:preview) %></td>
+        <td><%= link_to "#{room.roomname}", room_path(room.id) %></td>
+        <td><%= room.info %></td>
+        <td>&yen;<%= room.price %></td>
+        <td><%= room.updated_at.to_s(:datetime_jp) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,63 @@
+<div class="roomshow-contents wrapper">
+  <div class="roomdetail-contents">
+    <article>
+      <p><%= image_tag @room.image.url %></p>
+      <div class="roomshow-title">
+        <div class="avatar-preview">
+          <%= image_tag @room.user.avatar.url %>
+        </div>
+        <div>
+          <h2><%= @room.roomname %></h2>
+          <h3><%= @room.address %></h3>
+        </div>
+      </div>
+      <div class="roomshow-info">
+        <%= @room.info %>
+      </div>
+      <% if user_signed_in? && @room.user == current_user %>
+        <div>
+          管理者メニュー：
+          <%= link_to "ルーム編集", edit_room_path %>
+          <%= link_to "ルーム削除", room_path, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+        </div>
+      <% end %>
+    </article>
+  </div>
+
+  <aside>
+    <div class="main-contents">
+      <h3>&yen;<%= @room.price %>/日</h3>
+
+      <%= form_with model: @reservation do |f| %>
+      <%= render "users/shared/error_messages", resource: @reservation %>
+    
+        <table>
+          <tr>
+            <th><%= f.label :startdate, "開始日" %></th>
+            <td><%= f.date_field :startdate %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :enddate, "終了日" %></th>
+            <td><%= f.date_field :enddate %></td>
+          </tr>
+          <tr>
+            <th><%= f.label :num_of_people, "人数" %></th>
+            <td><%= f.number_field :num_of_people %></td>
+          </tr>
+        </table>
+  
+        <div class="actions">
+          <% if user_signed_in? %>
+            <%= f.hidden_field :user_id, value: @user.id %>
+            <%= f.hidden_field :room_id, value: @room.id %>
+              <%= f.submit "予約する" %>
+            
+          <% else %>
+              <%= link_to "ログイン", new_user_session_path %>
+          <% end %>
+        </div>
+
+      <% end %>
+    </div>
+  </aside>
+</div>
