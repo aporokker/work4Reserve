@@ -1,0 +1,11 @@
+<div id="home" class="big-bg">
+  <div class="home-content wrapper">
+    <h2 class="page-title">リゾートを身近に。シェアしよう、ShaREsortで</h2>
+    <%= search_form_for @search do |f| %>
+      <%= f.label :address_cont, "エリア" %><br>
+      <%= f.search_field :address_cont, placeholder: "石垣島" %><br>
+
+      <%= f.submit "探す" %>
+    <% end %>
+  </div>
+</div>

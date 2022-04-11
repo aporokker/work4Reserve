@@ -1,0 +1,42 @@
+<div class="twocolumns-contents wrapper">
+  <aside>
+      <%= link_to "ルーム情報編集", edit_room_path(@room.id) %>
+  </aside>
+
+  <article>
+    <div class="main-contents">
+      <h1>ルーム情報編集</h1>
+
+      <%= form_with model: @room do |f| %>
+        <%= render "users/shared/error_messages", resource: @room %>
+
+        <table>
+        <tr>
+          <th><%= f.label :roomname, "ルーム名" %></th>
+          <td><%= f.text_field :roomname %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :info, "ルーム紹介" %></th>
+          <td><%= f.text_area :info %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :price, "料金" %></th>
+          <td><%= f.text_field :price %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :address, "住所" %></th>
+          <td><%= f.text_area :address %></td>
+        </tr>
+        <tr>
+          <th><%= f.label :image, "ルーム画像" %></th>
+          <td><%= f.file_field :image %></td>
+        </tr>
+        </table>
+
+        <div class="actions">
+          <%= f.submit "登録" %>
+        </div>
+      <% end %>
+    </div>
+  </article>
+</div>

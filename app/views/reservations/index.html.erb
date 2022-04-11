@@ -1,0 +1,33 @@
+<div class="list-contents wrapper">
+  <h1>予約済みルーム一覧</h1>
+
+  <table>
+    <thread>
+      <tr>
+      <th>ルーム画像</th>
+      <th>ルーム名</th>
+      <th>ルーム紹介</th>
+      <th>合計料金</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>予約確定日時</th>
+      <th>予約削除</th>
+      </tr>
+    </thread>
+    <tbody>
+      <% @reservations.each do |reservation| %>
+        <tr>
+        <td><%= image_tag reservation.room.image.url(:preview) %></td>
+        <td><%= link_to "#{reservation.room.roomname}", room_path(reservation.room.id) %></td>
+        <td><%= reservation.room.info %></td>
+        <td>&yen;<%= reservation.total_price %></td>
+        <td><%= reservation.startdate %></td>
+        <td><%= reservation.enddate %></td>
+        <td><%= reservation.created_at.to_s(:datetime_jp) %></td>
+        <td><%= link_to "削除", reservation_path(reservation.id), method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

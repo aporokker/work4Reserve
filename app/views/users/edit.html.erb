@@ -1,0 +1,40 @@
+<div class="twocolumns-contents wrapper">
+  <aside>
+    <%= render "users/shared/accountmenu" %>
+  </aside>
+
+  <article>
+    <div class="main-contents">
+      <h1>プロフィール編集</h1>
+        <% if current_user.avatar? %>
+          <%= image_tag @user.avatar.url %>
+        <% else %>
+          <%= image_tag ("defaulticon.jpg") %>
+        <% end %>
+
+        <%= form_with model: @user do |f| %>
+          <%= render "users/shared/error_messages", resource: @user %>
+
+          <table>
+            <tr>
+              <th><%= f.label :avatar, "アイコン画像" %>(必須)</th>
+              <td><%= f.file_field :avatar %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :username, "ユーザー名" %>(必須)</th>
+              <td><%= f.text_field :username %></td>
+            </tr>
+            <tr>
+              <th><%= f.label :selfintro, "自己紹介" %>(必須)</th>
+              <td><%= f.text_area :selfintro %></td>
+            </tr>
+          </table>
+
+          <div class="actions">
+            <%= f.submit "編集を完了する" %>
+          </div>
+
+        <% end %>
+    </div>
+  </article>
+</div>
